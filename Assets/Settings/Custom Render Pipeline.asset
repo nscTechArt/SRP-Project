@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384a5f3b59ab2464bbac38eba18251f5, type: 3}
+  m_Name: Custom Render Pipeline
+  m_EditorClassIdentifier: 
+  m_Settings:
+    m_CameraBufferSettings:
+      m_AllowHDR: 1
+      m_CopyColor: 1
+      m_CopyDepth: 1
+      m_RenderScale: 1
+      m_BicubicRescaling: 1
+      m_FXAA:
+        enabled: 1
+        fixedThreshold: 0.0312
+        relativeThreshold: 0.063
+        subpixelBlending: 0.75
+        quality: 2
+    m_ForwardPlusSettings:
+      m_TileSize: 64
+      m_MaxLightsPerTile: 32
+    m_ShadowSettings:
+      m_MaxDistance: 50
+      m_FadeRatioOfMaxDistance: 0.1
+      m_FilterQuality: 1
+      m_Directional:
+        m_AtlasSize: 4096
+        m_CascadeCount: 4
+        m_CascadeRatio1: 0
+        m_CascadeRatio2: 0.135
+        m_CascadeRatio3: 0.4
+        m_CascadeFade: 0.1
+        m_CascadeBlendMode: 2
+        m_SoftCascadeBlend: 0
+      m_Other:
+        m_AtlasSize: 2048
+    m_PostFXSettings: {fileID: 11400000, guid: aebabf57068155446993b1ae8502cbe5, type: 2}
+    m_ColorLUTResolution: 64
+    m_CameraRendererShader: {fileID: 4800000, guid: 515d403184416774ab334f247d4efbb4, type: 3}
+    m_CameraDebuggerShader: {fileID: 4800000, guid: 811417e1473ce3e41be3a54b6f79563d, type: 3}
+  m_CameraBuffer:
+    m_AllowHDR: 1
+    m_CopyColor: 1
+    m_CopyDepth: 1
+    m_RenderScale: 1
+    m_BicubicRescaling: 1
+    m_FXAA:
+      enabled: 1
+      fixedThreshold: 0.0312
+      relativeThreshold: 0.063
+      subpixelBlending: 0.75
+      quality: 2
+  m_ShadowSettings:
+    m_MaxDistance: 50
+    m_FadeRatioOfMaxDistance: 0.1
+    m_FilterQuality: 1
+    m_Directional:
+      m_AtlasSize: 4096
+      m_CascadeCount: 4
+      m_CascadeRatio1: 0
+      m_CascadeRatio2: 0.135
+      m_CascadeRatio3: 0.4
+      m_CascadeFade: 0.1
+      m_CascadeBlendMode: 2
+      m_SoftCascadeBlend: 0
+    m_Other:
+      m_AtlasSize: 2048
+  m_PostFXSettings: {fileID: 0}
+  m_ColorLUTResolution: 64
+  m_CameraRendererShader: {fileID: 0}
