@@ -45,18 +45,18 @@ BRDF GetBRDF(Surface surface)
     return brdf;
 }
 
-float D_GGX_Custom(float roughness, float NdotH)
+float D_GGX_SRP(float roughness, float NdotH)
 {
-    float oneMinusNdotH2 = 1.0 - NdotH * NdotH;
-    float a = roughness * NdotH;
-    float k = roughness / (oneMinusNdotH2 + a * a);
+    float oneMinusNdotHSquared = 1.0 - NdotH * NdotH;
+    float a = NdotH * roughness;
+    float k = roughness / (oneMinusNdotHSquared + a * a);
     float d = k * k * rcp(PI);
     return d;
 }
 
-float V_SmithGGXCorrelated(float roughness, float NdotL, float NdotV)
+float V_SmithGGXCorrelated_SRP(float roughness, float NdotL, float NdotV)
 {
-    float a2 = Square(roughness);
+    float a2 = roughness * roughness;
     float lambdaV = NdotL * sqrt((NdotV - a2 * NdotV) * NdotV + a2);
     float lambdaL = NdotV * sqrt((NdotL - a2 * NdotL) * NdotL + a2);
     float v = 0.5 * rcp(lambdaV + lambdaL);
@@ -68,7 +68,7 @@ float3 F_Schlick_SRP(float3 f0, float f90, float VdotH)
     return f0 + (f90 - f0) * pow(1.0 - VdotH, 5.0);
 }
 
-float3 F_Schlick_Custom(float3 f0, float VdotH)
+float3 F_Schlick_SRP(float3 f0, float VdotH)
 {
     float f = pow(1.0 - VdotH, 5.0);
     return f + (1.0 - f) * f0;
@@ -76,9 +76,9 @@ float3 F_Schlick_Custom(float3 f0, float VdotH)
 
 float3 SpecularLobe(float roughness, float3 f0, float NdotH, float NdotL, float NdotV, float VdotH)
 {
-    float D = D_GGX_Custom(roughness, NdotH);
-    float V = V_SmithGGXCorrelated(roughness, NdotL, NdotV);
-    float3 F = F_Schlick_Custom(f0, VdotH);
+    float  D = D_GGX_SRP(roughness, NdotH);
+    float  V = V_SmithGGXCorrelated_SRP(roughness, NdotL, NdotV);
+    float3 F = F_Schlick_SRP(f0, VdotH);
     return D * V * F;
 }
 
@@ -108,7 +108,7 @@ float3 DirectBRDF(Surface surface, BRDF brdf, Light light)
     float LdotH = saturate(dot(light.direction, h));
     
     float3 fr = SpecularLobe(brdf.roughness, brdf.f0, NdotH, NdotL, NdotV, VdotH);
-    float3 fd = Fd_Burley(brdf.roughness, NdotV, NdotL, LdotH) * brdf.diffuseColor;
+    float3 fd = DiffuseLobe(brdf, NdotV, NdotL, LdotH);
 
     float3 color = fd + fr;
     return color;

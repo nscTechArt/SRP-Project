@@ -85,7 +85,7 @@ Material:
     - _DetailNormalScale: 1
     - _DetailSmoothness: 1
     - _DstBlend: 0
-    - _Fresnel: 0.5
+    - _Fresnel: 0.71
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -97,8 +97,8 @@ Material:
     - _Occlusion: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Reflectance: 1
-    - _Smoothness: 0.727
+    - _Reflectance: 0.5
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
