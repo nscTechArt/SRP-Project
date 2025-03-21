@@ -55,9 +55,9 @@ float4 MetaPassFragment(Varyings input) : SV_Target
     float4 meta = 0.0;
     if (BAKE_DIFFUSE_REFLECTIVITY)
     {
-        meta = float4(brdf.diffuse, 1.0);
+        meta = float4(brdf.diffuseColor, 1.0);
         // extra post-processing on the diffuse reflectivity
-        meta.rgb += brdf.specular * brdf.roughness * 0.5;
+        meta.rgb += brdf.f0 * brdf.roughness * 0.5;
         meta.rgb  = min(PositivePow(meta.rgb, unity_OneOverOutputBoost), unity_MaxOutputValue);
     }
     else if (BAKE_EMISSION)
