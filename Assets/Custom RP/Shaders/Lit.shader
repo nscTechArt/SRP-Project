@@ -8,9 +8,7 @@ Shader "Custom RP/Lit"
         [Toggle(_MASK_MAP)] _MaskMapToggle("Mask Map", Float) = 0
         [NoScaleOffset] _MaskMap("Mask (MODS)", 2D) = "white" {}
         _Metallic("Metallic", Range(0, 1)) = 0.0
-        _Occlusion("Occlusion", Range(0, 1)) = 1.0
         _Smoothness("Smoothness", Range(0, 1)) = 0.5
-        _Fresnel("Fresnel", Range(0, 1)) = 0.5
         _Reflectance("Reflectance", Range(0, 1)) = 0.5
         
         [Toggle(_NORMAL_MAP)] _NormalMapToggle("Normal Map", Float) = 0
@@ -26,6 +24,9 @@ Shader "Custom RP/Lit"
         _DetailAlbedo("Detail Albedo", Range(0, 1)) = 1.0
         _DetailSmoothness("Detail Smoothness", Range(0, 1)) = 1.0
         _DetailNormalScale("Detail Normal Scale", Range(0, 1)) = 1.0
+        
+        _Occlusion("Occlusion", Range(0, 1)) = 1.0
+        _Fresnel("Fresnel", Range(0, 1)) = 0.5
     }
     
     SubShader
