@@ -18,9 +18,12 @@ float2 GetDefaultUV()
     return float2(0.0, 0.0);
 }
 
-float3 GetTriPlanarWeights(Varyings varyings)
+float3 GetTriPlanarWeights(Varyings varyings, float heightX, float heightY, float heightZ)
 {
     float3 weights = abs(varyings.normalWS);
+    weights = saturate(weights - _BaseMap_ST.y);
+    weights *= lerp(1, float3(heightX, heightY, heightZ), _BaseMap_ST.w);
+    weights = pow(weights, _BaseMap_ST.z);
     const float sum = weights.x + weights.y + weights.z;
     return weights *= rcp(sum);
 }
@@ -70,23 +73,24 @@ void TriPlanar(inout Surface surface, Varyings varyings, InputConfig config)
     // get triplanar uv and weights
     // ----------------------------
     TriPlanarUV triUV = GetTriPlanarUV(varyings);
-    const float3 blend = GetTriPlanarWeights(varyings);
 
     // albedo mapping
     // --------------
     float3 albedoX = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, triUV.x).rgb;
     float3 albedoY = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, triUV.y).rgb;
     float3 albedoZ = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, triUV.z).rgb;
-    surface.color += albedoX * blend.x;
-    surface.color += albedoY * blend.y;
-    surface.color += albedoZ * blend.z;
-    surface.color *= _BaseColor;
-
+    
     // mask mapping
     // ------------
     float4 maskX = SAMPLE_TEXTURE2D(_MaskMap, sampler_BaseMap, triUV.x);
     float4 maskY = SAMPLE_TEXTURE2D(_MaskMap, sampler_BaseMap, triUV.y);
     float4 maskZ = SAMPLE_TEXTURE2D(_MaskMap, sampler_BaseMap, triUV.z);
+    const float3 blend = GetTriPlanarWeights(varyings, maskX.z, maskY.z, maskZ.z);
+    
+    surface.color += albedoX * blend.x;
+    surface.color += albedoY * blend.y;
+    surface.color += albedoZ * blend.z;
+    surface.color *= _BaseColor;
     float4 mask  = maskX * blend.x + maskY * blend.y + maskZ * blend.z;
     surface.metallic = _Metallic * mask.r;
     surface.occlusion = _Occlusion * mask.g;
