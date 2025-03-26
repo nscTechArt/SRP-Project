@@ -50,8 +50,8 @@ Shader "Custom RP/TriPlanar Lit"
             #pragma multi_compile _ _SHADOW_MASK_ALWAYS _SHADOW_MASK_DISTANCE
             #pragma multi_compile _ LIGHTMAP_ON
             
-            #pragma vertex   LitPassVertex
-            #pragma fragment LitPassFragment
+            #pragma vertex   TriPlanarLitPassVertex
+            #pragma fragment TriPlanarLitPassFragment
 
             #include "../ShaderLibrary/Common.hlsl"
             #include "Includes/LitInput.hlsl"

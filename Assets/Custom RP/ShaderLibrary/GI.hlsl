@@ -24,7 +24,6 @@ TEXTURE2D(unity_ShadowMask);          SAMPLER(samplerunity_ShadowMask);
 TEXTURECUBE(unity_SpecCube0);         SAMPLER(samplerunity_SpecCube0);
 TEXTURE3D_FLOAT(unity_ProbeVolumeSH); SAMPLER(samplerunity_ProbeVolumeSH);
 
-
 // --------------------------------------STRUCTS--------------------------------------
 struct GI
 {
