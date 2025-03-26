@@ -6,13 +6,15 @@ This project serves as my hands-on exploration of Unity SRP, featuring an art sc
 
 ![](Images/ForwardPlusDebug.png)
 
+![](Images/PBR.png)
+
 ### TODO
 
 - [x] Tiled Based Forward Rendering
 
 - [x] Physically Based Shading
 
-- [ ] Deffered Rendering
+- [ ] Deferred Rendering
 
 - [ ] Render Graph Node Editor
 
@@ -36,6 +38,6 @@ This project serves as my hands-on exploration of Unity SRP, featuring an art sc
   - [x] White Balance
   - [x] Color Adjustments
   - [x] Split Toning
-  - [ ] Channel Mixer
+  - [x] Channel Mixer
 
   
