@@ -3,6 +3,9 @@
 // ---------------------------------------MACROS--------------------------------------
 #define MIN_PERCEPTUAL_ROUGHNESS 0.045
 
+// --------------------------------------INCLUDES-------------------------------------
+#include "DisneyBRDF.hlsl"
+
 // --------------------------------------STRUCTS--------------------------------------
 struct BRDF
 {
@@ -20,11 +23,11 @@ BRDF GetBRDF(Surface surface)
 
     // diffuse
     // -------
-    brdf.diffuseColor = surface.color * (1 - surface.metallic);
+    brdf.diffuseColor = surface.baseColor * (1 - surface.metallic);
 
     // f0
     float dielectricF0 = 0.16 * surface.reflectance * surface.reflectance;
-    brdf.f0 = surface.color * surface.metallic + dielectricF0 * (1 - surface.metallic);
+    brdf.f0 = surface.baseColor * surface.metallic + dielectricF0 * (1 - surface.metallic);
 
     // roughness
     // ---------

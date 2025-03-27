@@ -87,10 +87,10 @@ void TriPlanar(inout Surface surface, Varyings varyings, InputConfig config)
     float4 maskZ = SAMPLE_TEXTURE2D(_MaskMap, sampler_BaseMap, triUV.z);
     const float3 blend = GetTriPlanarWeights(varyings, maskX.z, maskY.z, maskZ.z);
     
-    surface.color += albedoX * blend.x;
-    surface.color += albedoY * blend.y;
-    surface.color += albedoZ * blend.z;
-    surface.color *= _BaseColor;
+    surface.baseColor += albedoX * blend.x;
+    surface.baseColor += albedoY * blend.y;
+    surface.baseColor += albedoZ * blend.z;
+    surface.baseColor *= _BaseColor;
     float4 mask  = maskX * blend.x + maskY * blend.y + maskZ * blend.z;
     surface.metallic = _Metallic * mask.r;
     surface.occlusion = _Occlusion * mask.g;

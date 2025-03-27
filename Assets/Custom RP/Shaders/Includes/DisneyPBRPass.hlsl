@@ -40,7 +40,7 @@ struct Varyings
 };
 
 // -------------------------------------FUNCTIONS-------------------------------------
-Varyings LitPassVertex(Attributes input)
+Varyings DisneyPBRPassVertex(Attributes input)
 {
     Varyings output;
     output.positionWS    = TransformObjectToWorld(input.positionOS);
@@ -60,7 +60,7 @@ Varyings LitPassVertex(Attributes input)
     return output;
 }    
 
-float4 LitPassFragment(Varyings input) : SV_TARGET
+float4 DisneyPBRPassFragment(Varyings input) : SV_TARGET
 {
     InputConfig config = GetInputConfig(input.positionCS_SS, input.baseUV);
 #ifdef _MASK_MAP
@@ -73,11 +73,11 @@ float4 LitPassFragment(Varyings input) : SV_TARGET
     
     float4 baseColor = GetBaseColor(config);
     
-    Surface surface;
+    Surface surface = (Surface)0;
     surface.position           = input.positionWS;
     surface.viewDir            = normalize(_WorldSpaceCameraPos - input.positionWS);
     surface.depth              = -TransformWorldToView(input.positionWS).z;
-    surface.baseColor              = baseColor.rgb;
+    surface.baseColor          = baseColor.rgb;
     surface.alpha              = baseColor.a;
     surface.metallic           = GetMetallic(config);
     surface.occlusion          = GetOcclusion(config);
@@ -93,6 +93,15 @@ float4 LitPassFragment(Varyings input) : SV_TARGET
     surface.normal             = normalize(input.normalWS);
     surface.interpolatedNormal = surface.normal;
 #endif
+
+    surface.subSurface = _SubSurface;
+    surface.specular   = _Specular;
+    surface.specularTint = _SpecularTint;
+    surface.sheen     = _Sheen;
+    surface.sheenTint = _SheenTint;
+    surface.anisotropy = _Anisotropy;
+    surface.clearCoat = _ClearCoat;
+    surface.clearCoatGloss = _ClearCoatGloss;
     
 
     BRDF brdf = GetBRDF(surface);

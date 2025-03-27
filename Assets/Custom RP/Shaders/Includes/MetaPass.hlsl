@@ -46,7 +46,7 @@ float4 MetaPassFragment(Varyings input) : SV_Target
 
     Surface surface;
     ZERO_INITIALIZE(Surface, surface);
-    surface.color = baseColor.rgb;
+    surface.baseColor = baseColor.rgb;
     surface.metallic = GetMetallic(config);
     surface.smoothness = GetSmoothness(config);
 
