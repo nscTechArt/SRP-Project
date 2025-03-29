@@ -89,11 +89,19 @@ float4 DisneyPBRPassFragment(Varyings input) : SV_TARGET
 #ifdef _NORMAL_MAP
     surface.normal             = NormalTangentToWorld(GetNormalTS(config), input.normalWS, input.tangentWS);
     surface.interpolatedNormal = input.normalWS;
+    surface.tangent = normalize(input.tangentWS.xyz);
+    float3 sgn = input.tangentWS.w * GetOddNegativeScale();
+    float3 bitangent = cross(surface.normal, surface.tangent) * sgn;
+    surface.bitangent = normalize(bitangent);
 #else
     surface.normal             = normalize(input.normalWS);
     surface.interpolatedNormal = surface.normal;
 #endif
 
+    
+    // For odd-negative scale transforms we need to flip the sign
+    
+    surface.roughness = 1.0 - surface.smoothness;
     surface.subSurface = _SubSurface;
     surface.specular   = _Specular;
     surface.specularTint = _SpecularTint;

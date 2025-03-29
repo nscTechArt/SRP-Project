@@ -23,6 +23,7 @@ float3 LightContribution(Surface surface, Light light)
 float3 GetLightingForSingleLight(Surface surface, BRDF brdf, Light light)
 {
     return LightContribution(surface, light) * DirectBRDF(surface, brdf, light);
+    // return LightContribution(surface, light) * DisneyBRDF(surface, light);
 }
 
 float3 GetLighting(Fragment fragment, Surface surface, BRDF brdf, GI gi)
