@@ -2,6 +2,8 @@ Shader "Custom RP/Disney PBR"
 {
     Properties
     {
+        [Toggle(_DISNEY_PBR)] _DisneyPBRToggle("Disney PBR", Float) = 0
+        
         _BaseMap("Texture", 2D) = "white" {}
         _BaseColor("Color", Color) = (0.5, 0.5, 0.5, 1.0)
         
@@ -28,7 +30,6 @@ Shader "Custom RP/Disney PBR"
         _Occlusion("Occlusion", Range(0, 1)) = 1.0
         _Fresnel("Fresnel", Range(0, 1)) = 0.5
         
-        _Roughness("Roughness", Range(0.0, 1.0)) = 0.5
         _SubSurface("Sub Surface", Range(0, 1)) = 0.0
         _Specular("Specular", Range(0, 1)) = 0.5
         _SpecularTint("Specular Tint", Range(0, 1)) = 0.5
@@ -53,6 +54,7 @@ Shader "Custom RP/Disney PBR"
             #pragma shader_feature _NORMAL_MAP
             #pragma shader_feature _MASK_MAP
             #pragma shader_feature _DETAIL_MAP
+            #pragma shader_feature _DISNEY_PBR
             
             #pragma multi_compile _ _SHADOW_FILTER_MIDUM _SHADOW_FILTER_HIGH
             #pragma multi_compile _ _SOFT_CASCADE_BLEND

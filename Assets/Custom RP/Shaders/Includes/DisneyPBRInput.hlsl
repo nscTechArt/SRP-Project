@@ -25,7 +25,6 @@ CBUFFER_START(UnityPerMaterial)
     float  _DetailAlbedo;
     float  _DetailSmoothness;
     float  _DetailNormalScale;
-    float  _Roughness;
     float  _SubSurface;
     float  _Specular;
     float  _SpecularTint;

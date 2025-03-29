@@ -20,13 +20,14 @@ float3 LightContribution(Surface surface, Light light)
     return lightContribution;
 }
 
-float3 GetLightingForSingleLight(Surface surface, BRDF brdf, Light light)
+float3 GetLightingForSingleLight(Surface surface, BRDF brdf, Light light, bool disneyPBR = false)
 {
+    if (disneyPBR)
+        return LightContribution(surface, light) * DisneyBRDF(surface, light);
     return LightContribution(surface, light) * DirectBRDF(surface, brdf, light);
-    // return LightContribution(surface, light) * DisneyBRDF(surface, light);
 }
 
-float3 GetLighting(Fragment fragment, Surface surface, BRDF brdf, GI gi)
+float3 GetLighting(Fragment fragment, Surface surface, BRDF brdf, GI gi, bool disneyPBR = false)
 {
     // shadow data for current fragment
     // --------------------------------
@@ -46,7 +47,7 @@ float3 GetLighting(Fragment fragment, Surface surface, BRDF brdf, GI gi)
         // skip light if it doesn't affect the current rendering layer
         if (!RenderingLayersOverlap(surface, currentLight)) continue;
         
-        color += GetLightingForSingleLight(surface, brdf, currentLight);
+        color += GetLightingForSingleLight(surface, brdf, currentLight, disneyPBR);
     }
 
     // accumulate realtime lighting for all other lights

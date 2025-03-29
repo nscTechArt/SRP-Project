@@ -26,10 +26,12 @@ struct Varyings
     float4 positionCS_SS : SV_POSITION;
     float3 positionWS    : VAR_POSITION_WS;
     float3 normalWS      : VAR_NORMAL_WS;
+    float2 baseUV        : VAR_BASE_UV;
+
 #ifdef _NORMAL_MAP
     float4 tangentWS     : VAR_TANGENT_WS;
 #endif
-    float2 baseUV        : VAR_BASE_UV;
+    
 #ifdef _DETAIL_MAP
     float2 detailUV      : VAR_DETAIL_UV;
 #endif
@@ -70,7 +72,13 @@ float4 DisneyPBRPassFragment(Varyings input) : SV_TARGET
     config.detailUV = input.detailUV;
     config.useDetail = true;
 #endif
-    
+
+    bool disneyPBR = false;
+    #ifdef _DISNEY_PBR
+    disneyPBR = true;
+    #endif
+
+
     float4 baseColor = GetBaseColor(config);
     
     Surface surface = (Surface)0;
@@ -111,7 +119,6 @@ float4 DisneyPBRPassFragment(Varyings input) : SV_TARGET
     surface.clearCoat = _ClearCoat;
     surface.clearCoatGloss = _ClearCoatGloss;
     
-
     BRDF brdf = GetBRDF(surface);
 
     // retrieve GI data
@@ -121,7 +128,7 @@ float4 DisneyPBRPassFragment(Varyings input) : SV_TARGET
 
     // apply surface diffuse, gi, and real-time lighting
     // -------------------------------------------------
-    float3 color = GetLighting(config.fragment, surface, brdf, gi);
+    float3 color = GetLighting(config.fragment, surface, brdf, gi, disneyPBR);
 
     // apply emission
     // --------------

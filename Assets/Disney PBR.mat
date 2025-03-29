@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _DISNEY_PBR
   - _NORMAL_MAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -50,28 +51,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Anisotropy: 0
-    - _ClearCoat: 1
+    - _Anisotropy: 1
+    - _ClearCoat: 0.71
     - _ClearCoatGloss: 1
     - _DetailAlbedo: 1
     - _DetailMapToggle: 0
     - _DetailNormalScale: 1
     - _DetailSmoothness: 1
-    - _Fresnel: 0.5
+    - _DisneyPBRToggle: 1
+    - _Fresnel: 1
     - _MaskMapToggle: 0
-    - _Metallic: 0.92
+    - _Metallic: 1
     - _NormalMapToggle: 1
     - _NormalScale: 1
     - _Occlusion: 1
-    - _Reflectance: 1
-    - _Roughness: 0.768
-    - _Sheen: 0.942
-    - _SheenTint: 1
+    - _Reflectance: 0.92
+    - _Roughness: 0.681
+    - _Sheen: 0.624
+    - _SheenTint: 0.587
     - _Smoothness: 1
-    - _Specular: 1
-    - _SpecularTint: 1
-    - _SubSurface: 0.334
+    - _Specular: 0
+    - _SpecularTint: 0
+    - _SubSurface: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
+    - _BaseColor: {r: 0, g: 0.6463928, b: 0.7924528, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
